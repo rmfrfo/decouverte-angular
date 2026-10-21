@@ -4,11 +4,12 @@ import { UpperCasePipe } from '@angular/common';
 import { LeaveCounter } from './leave-counter/leave-counter';
 import { EmployeeCard } from './employee-card/employee-card';
 import { Employee } from './models/employee';
+import { SearchBox } from './search-box/search-box';
 
 // Un type qui n'accepte que ces trois textes : une faute de frappe sera refusée.
 type Status = 'sur site' | 'en télétravail' | 'absent';
 @Component({
-  imports: [RouterOutlet, UpperCasePipe, LeaveCounter, EmployeeCard],
+  imports: [RouterOutlet, UpperCasePipe, LeaveCounter, EmployeeCard, SearchBox],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
@@ -73,8 +74,16 @@ export class App {
       remote: false,
     },
   ]);
+  protected readonly search = signal('');
+
   protected readonly employeesCount = computed(() => this.employees().length);
   protected readonly employeesRemoteCount = computed(
     () => this.employees().filter((e) => e.remote).length,
   );
+  protected readonly filteredEmployees = computed(() => {
+    const text = this.search().trim().toLowerCase();
+    return this.employees().filter((employee) =>
+      (employee.firstName + ' ' + employee.lastName).toLowerCase().includes(text),
+    );
+  });
 }
