@@ -51,7 +51,12 @@
   <ul class="team">
     @for (employee of employees(); track employee.id) {
       <li>
-        <app-employee-card [employee]="employee" [compact]="true" />
+        <app-employee-card
+          [employee]="employee"
+          [compact]="true"
+          [position]="$index + 1"
+          [count]="$count"
+        />
       </li>
     } @empty {
       <li>Aucun collègue pour le moment.</li>

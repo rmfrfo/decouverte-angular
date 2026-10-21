@@ -13,4 +13,10 @@ export class EmployeeCard {
   // required : le parent est OBLIGÉ de la fournir.
   readonly employee = input.required<Employee>();
   compact = input(false);
+  readonly position = input<number>();
+  readonly count = input<number>();
+
+  readonly employeeInitials = computed(() => {
+    return `${this.employee().firstName.charAt(0)}${this.employee().lastName.charAt(0)}`.toUpperCase();
+  });
 }
