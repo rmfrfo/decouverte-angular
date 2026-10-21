@@ -1,0 +1,9 @@
+<p>Jours posés : {{ daysTaken() }}</p>
+<!-- aria-live : le lecteur d'ecran annonce le nouveau solde. -->
+<p aria-live="polite" [class.counter--empty]="isEmpty()">
+  Jours restants : {{ remainingDays() }} / {{ totalDays }}
+</p>
+
+<button type="button" [disabled]="isEmpty()" (click)="addDay()">Poser un jour</button>
+<button type="button" [disabled]="daysTaken() === 0" (click)="removeDay()">Annuler un jour</button>
+<button type="button" (click)="reset()">Remettre à zéro</button>
