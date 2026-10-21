@@ -1,0 +1,23 @@
+/* Le bouton du statut choisi est mis en evidence. */
+[aria-pressed='true'] {
+  background-color: #dbeafe;
+}
+
+.team {
+  display: grid;
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 40rem) {
+  .team {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 64rem) {
+  .team {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
