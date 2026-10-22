@@ -1,10 +1,8 @@
-.header {
-  display: flex;
+mat-toolbar {
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #d1d5db;
+  gap: 0.5rem;
+  height: auto;
+  min-height: 64px;
 }
 
 .app-name {
@@ -27,4 +25,5 @@ nav {
 .container {
   max-width: 64rem;
   margin: 0 auto;
+  padding: 1rem;
 }

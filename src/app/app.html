@@ -1,20 +1,24 @@
-<header class="header">
-  <span class="app-name">{{ appName }}</span>
-  <nav aria-label="Navigation principale">
-    <!-- routerLink : change de page sans recharger.
-         routerLinkActive : ajoute la classe "active" au lien de la page affichee.
-         ariaCurrentWhenActive : annonce "page actuelle" au lecteur d'ecran. -->
-    <a
-      routerLink="/"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-      ariaCurrentWhenActive="page"
-    >
-      Accueil
-    </a>
-    <a routerLink="/equipe" routerLinkActive="active" ariaCurrentWhenActive="page">Équipe</a>
-    <a routerLink="/ajouter" routerLinkActive="active" ariaCurrentWhenActive="page">Ajouter</a>
-  </nav>
+<header>
+  <mat-toolbar>
+    <span class="app-name">{{ appName }}</span>
+    <nav aria-label="Navigation principale">
+      <a
+        matButton
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page"
+      >
+        Accueil
+      </a>
+      <a matButton routerLink="/equipe" routerLinkActive="active" ariaCurrentWhenActive="page">
+        Équipe
+      </a>
+      <a matButton routerLink="/ajouter" routerLinkActive="active" ariaCurrentWhenActive="page">
+        Ajouter
+      </a>
+    </nav>
+  </mat-toolbar>
 </header>
 
 <main class="container">
