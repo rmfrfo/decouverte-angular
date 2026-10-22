@@ -1,0 +1,27 @@
+<h2 id="team-title">L'équipe</h2>
+<app-search-box [(query)]="search" />
+<p aria-live="polite">{{ filteredEmployees().length }} collègue(s) affiché(s)</p>
+
+<ul class="team">
+  @for (employee of filteredEmployees(); track employee.id) {
+    <li>
+      <app-employee-card
+        [employee]="employee"
+        [compact]="true"
+        [position]="$index + 1"
+        [count]="$count"
+      />
+      <button
+        type="button"
+        class="remove"
+        [attr.aria-label]="'Retirer ' + employee.firstName + ' ' + employee.lastName"
+        (click)="remove(employee.id)"
+      >
+        Retirer
+      </button>
+    </li>
+  } @empty {
+    <li>Aucun collègue ne correspond à « {{ search() }} ».</li>
+  }
+</ul>
+<p>{{ employeesCount() }} collègues, dont {{ employeesRemoteCount() }} en télétravail.</p>

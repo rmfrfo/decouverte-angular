@@ -1,77 +1,23 @@
-<h1>{{ appName }}</h1>
-<p>Bonjour {{ userName }}</p>
+<header class="header">
+  <span class="app-name">{{ appName }}</span>
+  <nav aria-label="Navigation principale">
+    <!-- routerLink : change de page sans recharger.
+         routerLinkActive : ajoute la classe "active" au lien de la page affichee.
+         ariaCurrentWhenActive : annonce "page actuelle" au lecteur d'ecran. -->
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      ariaCurrentWhenActive="page"
+    >
+      Accueil
+    </a>
+    <a routerLink="/equipe" routerLinkActive="active" ariaCurrentWhenActive="page">Équipe</a>
+    <a routerLink="/ajouter" routerLinkActive="active" ariaCurrentWhenActive="page">Ajouter</a>
+  </nav>
+</header>
 
-<!-- Une expression peut contenir un calcul ou un appel de methode. -->
-<p>Nous sommes en {{ 2020 + 6 }}. Votre prénom compte {{ userName.length }} lettres.</p>
-<p>En majuscules : {{ userName.toUpperCase() }}</p>
-
-<button type="button" (click)="sayHello()">Dire bonjour</button>
-<button type="button" (click)="clearMessage()">Effacer</button>
-<p aria-live="polite">{{ message | uppercase }}</p>
-<input type="text" #inputRef (input)="onType(inputRef.value)" placeholder="Entrez votre prénom" />
-
-<p>Vous recopiez {{ monChamp() }}</p>
-<section aria-labelledby="status-title">
-  <h2 id="status-title">Mon statut aujourd'hui</h2>
-  <!-- On LIT un signal en l'appelant : status() -->
-  <p>
-    Vous êtes : <strong>{{ status() }}</strong>
-  </p>
-
-  <button
-    type="button"
-    [attr.aria-pressed]="status() === 'sur site'"
-    (click)="changeStatus('sur site')"
-  >
-    Sur site
-  </button>
-  <button
-    type="button"
-    [attr.aria-pressed]="status() === 'en télétravail'"
-    (click)="changeStatus('en télétravail')"
-  >
-    En télétravail
-  </button>
-  <button
-    type="button"
-    [attr.aria-pressed]="status() === 'absent'"
-    (click)="changeStatus('absent')"
-  >
-    Absent
-  </button>
-</section>
-<section aria-labelledby="leave-title">
-  <h2 id="leave-title">Mes congés</h2>
-  <app-leave-counter />
-</section>
-
-<section aria-labelledby="team-title">
-  <h2 id="team-title">L'équipe</h2>
-  <app-search-box [(query)]="search" />
-  <p aria-live="polite">{{ filteredEmployees().length }} collègue(s) affiché(s)</p>
-
-  <ul class="team">
-    @for (employee of filteredEmployees(); track employee.id) {
-      <li>
-        <app-employee-card
-          [employee]="employee"
-          [compact]="true"
-          [position]="$index + 1"
-          [count]="$count"
-        />
-        <button
-          type="button"
-          class="remove"
-          [attr.aria-label]="'Retirer ' + employee.firstName + ' ' + employee.lastName"
-          (click)="remove(employee.id)"
-        >
-          Retirer
-        </button>
-      </li>
-    } @empty {
-      <li>Aucun collègue ne correspond à « {{ search() }} ».</li>
-    }
-  </ul>
-  <p>{{ employeesCount() }} collègues, dont {{ employeesRemoteCount() }} en télétravail.</p>
-</section>
-<router-outlet />
+<main class="container">
+  <!-- La page correspondant a l'adresse s'affiche ici. -->
+  <router-outlet />
+</main>

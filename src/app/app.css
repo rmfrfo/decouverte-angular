@@ -1,34 +1,30 @@
-/* Le bouton du statut choisi est mis en evidence. */
-[aria-pressed='true'] {
-  background-color: #dbeafe;
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #d1d5db;
 }
 
-.team {
-  display: grid;
+.app-name {
+  margin-right: auto;
+  font-weight: 700;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
-  padding: 0;
-  list-style: none;
 }
 
-.remove {
-  margin-top: 0.5rem;
-  padding: 0.25rem 0.75rem;
-  border: 1px solid #b91c1c;
-  border-radius: 0.25rem;
-  background: none;
-  color: #b91c1c;
-  font: inherit;
-  cursor: pointer;
+.active {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
 }
 
-@media (min-width: 40rem) {
-  .team {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 64rem) {
-  .team {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.container {
+  max-width: 64rem;
+  margin: 0 auto;
 }
