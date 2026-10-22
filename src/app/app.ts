@@ -1,10 +1,10 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { UpperCasePipe } from '@angular/common';
 import { LeaveCounter } from './leave-counter/leave-counter';
 import { EmployeeCard } from './employee-card/employee-card';
-import { Employee } from './models/employee';
 import { SearchBox } from './search-box/search-box';
+import { TeamStore } from './team-store';
 
 // Un type qui n'accepte que ces trois textes : une faute de frappe sera refusée.
 type Status = 'sur site' | 'en télétravail' | 'absent';
@@ -15,6 +15,9 @@ type Status = 'sur site' | 'en télétravail' | 'absent';
   templateUrl: './app.html',
 })
 export class App {
+  // inject() : Angular fournit l'instance unique du service.
+  private readonly store = inject(TeamStore);
+
   protected readonly appName = 'TechCorp Équipe';
   protected readonly userName = 'Romain';
   protected message = '';
@@ -45,45 +48,24 @@ export class App {
   protected clearMessage(): void {
     this.message = '';
   }
-  readonly employees = signal<Employee[]>([
-    {
-      id: 1,
-      firstName: 'Claire',
-      lastName: 'Martin',
-      email: 'claire.martin@techcorp.fr',
-      job: 'Développeuse front-end',
-      department: 'Informatique',
-      remote: true,
-    },
-    {
-      id: 2,
-      firstName: 'Julien',
-      lastName: 'Bernard',
-      email: 'julien.bernard@techcorp.fr',
-      job: 'Chef de projet',
-      department: 'Informatique',
-      remote: false,
-    },
-    {
-      id: 3,
-      firstName: 'Sarah',
-      lastName: 'Lefèvre',
-      email: 'sarah.lefevre@techcorp.fr',
-      job: 'Chargée RH',
-      department: 'Ressources humaines',
-      remote: false,
-    },
-  ]);
+
   protected readonly search = signal('');
 
-  protected readonly employeesCount = computed(() => this.employees().length);
+  protected readonly employeesCount = computed(() => this.store.employees().length);
   protected readonly employeesRemoteCount = computed(
-    () => this.employees().filter((e) => e.remote).length,
+    () => this.store.employees().filter((e) => e.remote).length,
   );
   protected readonly filteredEmployees = computed(() => {
     const text = this.search().trim().toLowerCase();
-    return this.employees().filter((employee) =>
-      (employee.firstName + ' ' + employee.lastName).toLowerCase().includes(text),
-    );
+    // employees est maintenant un signal : on le lit avec ().
+    return this.store
+      .employees()
+      .filter((employee) =>
+        (employee.firstName + ' ' + employee.lastName).toLowerCase().includes(text),
+      );
   });
+
+  protected remove(id: number): void {
+    this.store.remove(id);
+  }
 }

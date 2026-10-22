@@ -59,6 +59,14 @@
           [position]="$index + 1"
           [count]="$count"
         />
+        <button
+          type="button"
+          class="remove"
+          [attr.aria-label]="'Retirer ' + employee.firstName + ' ' + employee.lastName"
+          (click)="remove(employee.id)"
+        >
+          Retirer
+        </button>
       </li>
     } @empty {
       <li>Aucun collègue ne correspond à « {{ search() }} ».</li>

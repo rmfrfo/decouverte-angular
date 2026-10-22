@@ -10,6 +10,17 @@
   list-style: none;
 }
 
+.remove {
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #b91c1c;
+  border-radius: 0.25rem;
+  background: none;
+  color: #b91c1c;
+  font: inherit;
+  cursor: pointer;
+}
+
 @media (min-width: 40rem) {
   .team {
     grid-template-columns: repeat(2, 1fr);
