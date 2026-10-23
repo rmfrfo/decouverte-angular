@@ -1,10 +1,26 @@
 <h1>Ajouter un collègue</h1>
+<p>Tous les champs sont obligatoires, sauf le télétravail.</p>
 
+<!-- @let : un raccourci vers l'etat de chaque champ. -->
+@let firstName = employeeForm.firstName();
+@let lastName = employeeForm.lastName();
+@let emailField = employeeForm.email();
+@let job = employeeForm.job();
 <form class="form" [formRoot]="employeeForm">
   <div class="field">
     <label for="first-name">Prénom</label>
-    <!-- [formField] : relie le champ au formulaire, dans les deux sens. -->
-    <input id="first-name" [formField]="employeeForm.firstName" />
+    <input
+      id="first-name"
+      [formField]="employeeForm.firstName"
+      [attr.aria-invalid]="firstName.touched() && firstName.invalid()"
+      [attr.aria-describedby]="
+        firstName.touched() && firstName.invalid() ? 'first-name-error' : null
+      "
+    />
+    @if (firstName.touched() && firstName.invalid()) {
+      <!-- errors()[0] : on affiche la premiere erreur du champ. -->
+      <p class="field__error" id="first-name-error">{{ firstName.errors()[0].message }}</p>
+    }
   </div>
 
   <div class="field">
@@ -19,7 +35,16 @@
 
   <div class="field">
     <label for="job">Poste</label>
-    <input id="job" [formField]="employeeForm.job" />
+    <input
+      id="job"
+      [formField]="employeeForm.job"
+      [attr.aria-invalid]="job.touched() && job.invalid()"
+      [attr.aria-describedby]="job.touched() && job.invalid() ? 'job-error' : 'job-hint'"
+    />
+    <small id="job-hint">{{ job.value().length }} / 40 caractères</small>
+    @if (job.touched() && job.invalid()) {
+      <p class="field__error" id="job-error">{{ job.errors()[0].message }}</p>
+    }
   </div>
 
   <div class="field">
@@ -42,6 +67,4 @@
     <!-- type="button" : ce bouton n'envoie PAS le formulaire. -->
     <button matButton="outlined" type="button" (click)="resetForm()">Effacer</button>
   </div>
-
-  <p>Formulaire valide : {{ employeeForm().valid() }}</p>
 </form>
