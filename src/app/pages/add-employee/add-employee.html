@@ -1,6 +1,6 @@
 <h1>Ajouter un collègue</h1>
 
-<form class="form">
+<form class="form" [formRoot]="employeeForm">
   <div class="field">
     <label for="first-name">Prénom</label>
     <!-- [formField] : relie le champ au formulaire, dans les deux sens. -->
@@ -37,9 +37,9 @@
     <label for="remote">En télétravail</label>
   </div>
 
-  <!-- employeeForm.firstName() : l'ETAT du champ. .value() : sa valeur. -->
-  <p>
-    Aperçu : {{ employeeForm.firstName().value() }} {{ employeeForm.lastName().value() }},
-    {{ employeeForm.job().value() }} ({{ employeeForm.department().value() }})
-  </p>
+  <div class="form__actions">
+    <button matButton="filled" type="submit">Ajouter</button>
+    <!-- type="button" : ce bouton n'envoie PAS le formulaire. -->
+    <button matButton="outlined" type="button" (click)="resetForm()">Effacer</button>
+  </div>
 </form>
