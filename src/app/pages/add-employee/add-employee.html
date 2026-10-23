@@ -42,4 +42,6 @@
     <!-- type="button" : ce bouton n'envoie PAS le formulaire. -->
     <button matButton="outlined" type="button" (click)="resetForm()">Effacer</button>
   </div>
+
+  <p>Formulaire valide : {{ employeeForm().valid() }}</p>
 </form>

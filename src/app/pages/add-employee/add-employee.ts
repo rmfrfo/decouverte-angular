@@ -1,5 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormField, form, FormRoot } from '@angular/forms/signals';
+import {
+  FormField,
+  FormRoot,
+  email,
+  form,
+  maxLength,
+  minLength,
+  required,
+} from '@angular/forms/signals';
 import { MatButton } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { TeamStore } from '../../team-store';
@@ -41,13 +49,26 @@ export class AddEmployee {
   private readonly draft = signal<EmployeeDraft>({ ...EMPTY_DRAFT });
 
   // 2. Le formulaire : un champ par propriété du modèle.
-  protected readonly employeeForm = form(this.draft, {
-    // 3. L'action de soumission : appelée à l'envoi du formulaire.
-    //    async : elle pourrait attendre une réponse d'API (jour 4).
-    submission: {
-      action: async () => this.save(),
+  protected readonly employeeForm = form(
+    this.draft,
+    // Le schéma : les règles de validation de chaque champ.
+    (path) => {
+      required(path.firstName, { message: 'Le prénom est obligatoire.' });
+      required(path.lastName, { message: 'Le nom est obligatoire.' });
+      minLength(path.lastName, 2, { message: 'Le nom doit contenir au moins 2 lettres.' });
+      required(path.email, { message: "L'e-mail est obligatoire." });
+      email(path.email, {
+        message: "L'e-mail n'est pas valide (exemple : prenom.nom@techcorp.fr).",
+      });
+      required(path.job, { message: 'Le poste est obligatoire.' });
+      maxLength(path.job, 40, { message: 'Le poste ne doit pas dépasser 40 caractères.' });
     },
-  });
+    {
+      submission: {
+        action: async () => this.save(),
+      },
+    },
+  );
 
   protected resetForm(): void {
     // reset() remet les valeurs ET efface l'état "touché" des champs.
