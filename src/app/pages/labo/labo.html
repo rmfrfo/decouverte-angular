@@ -1,0 +1,13 @@
+<h1>Laboratoire de l'asynchronisme</h1>
+
+<section aria-labelledby="order-title">
+  <h2 id="order-title">1. L'ordre d'exécution</h2>
+  <div class="actions">
+    <button matButton="outlined" type="button" (click)="runTimeout()">Lancer setTimeout</button>
+  </div>
+  <ol class="logs" aria-live="polite">
+    @for (line of logs(); track $index) {
+      <li>{{ line }}</li>
+    }
+  </ol>
+</section>
